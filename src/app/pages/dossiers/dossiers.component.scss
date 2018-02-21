@@ -1,0 +1,29 @@
+@media screen and (min-width: 1620px) {
+  .row.shift-up {
+    > * {
+      margin-top: -573px;
+    }
+  }
+}
+
+@media screen and (max-width: 1620px) {
+  .card.feed-panel.large-card {
+    height: 824px;
+  }
+}
+
+/deep/ .row {
+  margin-left: 0px;
+  margin-right: 0px;
+
+  .card > .card-body {
+    padding: 0px;
+  }
+
+  .tab-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}

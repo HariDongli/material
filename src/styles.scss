@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.container {
+  width: 100%;
+  padding: 25px 0 0 0px;
+}
+
+.material-hint-error {
+  color: #f44336;
+}

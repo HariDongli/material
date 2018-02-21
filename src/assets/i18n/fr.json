@@ -1,0 +1,23 @@
+{
+  "general": {
+    "home": "Accueil",
+    "menu": {
+      "dashboard": "Accueil",
+      "dossiers": {
+        "title": "Dossiers",
+        "new": "Créer dossier"
+      }
+    },
+    "language": {
+      "french": "Français",
+      "english": "Anglais"
+    },
+    "created_with": "Créé avec"
+  },
+  "dossier": {
+    "create": {
+      "labels": {},
+      "errors": {}
+    }
+  }
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "09",
+    "libelle": "Ariège"
+  },
+  {
+    "id": 31,
+    "libelle": "Haute-Garonne"
+  },
+  {
+    "id": 32,
+    "libelle": "Gers"
+  },
+  {
+    "id": 33,
+    "libelle": "Gironde"
+  },
+  {
+    "id": 40,
+    "libelle": "Landes"
+  },
+  {
+    "id": 47,
+    "libelle": "Lot-et-Garonne"
+  },
+  {
+    "id": 64,
+    "libelle": "Pyrénées-Atlantiques"
+  },
+  {
+    "id": 65,
+    "libelle": "Hautes-Pyrénées"
+  },
+  {
+    "id": 81,
+    "libelle": "Tarn"
+  },
+  {
+    "id": 82,
+    "libelle": "Tarn-et-Garonne"
+  }
+]

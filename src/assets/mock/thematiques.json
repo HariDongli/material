@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "code": "AGRO",
+    "libelle": "Agro-alimentaire"
+  },
+  {
+    "id": 2,
+    "code": "CHIMI",
+    "libelle": "Chimie-DIS"
+  },
+  {
+    "id": 3,
+    "code": "GIV",
+    "libelle": "Gestion intégrée des vallées"
+  },
+  {
+    "id": 4,
+    "code": "MIG",
+    "libelle": "Migrateur - Etude et travaux"
+  },
+  {
+    "id": 5,
+    "code": "RGPM",
+    "libelle": "Restauration et gestion des populations de poissons migrateurs et de leurs habitats"
+  },
+  {
+    "id": 6,
+    "code": "PAPE",
+    "libelle": "Papeterie"
+  },
+  {
+    "id": 7,
+    "code": "RECH",
+    "libelle": "Recherche et prospective"
+  }
+]

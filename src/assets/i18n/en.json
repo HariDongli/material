@@ -1,0 +1,20 @@
+{
+  "general": {
+    "home": "Home",
+    "menu": {
+      "dashboard": "Dashboard",
+      "dossiers": "Folders"
+    },
+    "language": {
+      "french": "French",
+      "english": "English"
+    },
+    "created_with": "Created with"
+  },
+  "dossier": {
+    "detail": {
+      "labels": {},
+      "errors": {}
+    }
+  }
+}

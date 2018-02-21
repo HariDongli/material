@@ -1,0 +1,42 @@
+$mat-select-arrow-size: 5px !default;
+$mat-select-arrow-margin-width: 15px !default;
+$mat-select-arrow-margin-height: 4px !default;
+
+.siga-separator {
+  margin-top: 19px;
+}
+
+.mat-select-arrow-wrapper {
+  width: 0;
+  height: 0;
+  margin: $mat-select-arrow-margin-height $mat-select-arrow-margin-width;
+}
+
+.mat-select-arrow-down {
+  border-left: $mat-select-arrow-size solid transparent;
+  border-right: $mat-select-arrow-size solid transparent;
+  border-top: $mat-select-arrow-size solid;
+}
+
+.mat-select-arrow-up {
+  border-left: $mat-select-arrow-size solid transparent;
+  border-right: $mat-select-arrow-size solid transparent;
+  border-bottom: $mat-select-arrow-size solid;
+}
+
+.siga-form-confirm {
+  color: green;
+}
+
+.siga-form-cancel {
+  color: red;
+}
+
+.temp-margin {
+  margin-top: 20px;
+}
+
+
+.siga-uppercase-input {
+  text-transform:uppercase;
+}

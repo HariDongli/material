@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <p>Des données ont été saisies. Etes-vous sûr de vouloir quitter cet écran ?</p>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-evenly">
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-button (click)="onConfirmClick()" cdkFocusInitial>Confirmer</button>
+</div>
