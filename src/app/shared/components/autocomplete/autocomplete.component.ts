@@ -146,7 +146,6 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
 
 
   // CONTROL VALUE ACCESSOR
-
   private propagateChange = (_: any) => { };
 
   public writeValue(a: string) {

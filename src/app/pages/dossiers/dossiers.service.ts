@@ -18,8 +18,8 @@ export class DossierService {
   ) { }
 
   getThematiques(): Observable<Thematique[]> {
-    // return this.httpClient.get<Thematique[]>(`${environment.BASE_LOCAL_URL}` + this.tempThematiquesURL);
-    return this.httpClient.get<Thematique[]>(`${environment.BASE_API_URL}` + '/listValeur/thematiques');
+    return this.httpClient.get<Thematique[]>(`${environment.BASE_API_URL}` + this.tempThematiquesURL);
+    // return this.httpClient.get<Thematique[]>(`${environment.BASE_API_URL}` + '/listValeur/thematiques');
   }
 
   createDossier(dossier: Dossier) {
