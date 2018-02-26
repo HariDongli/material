@@ -2,6 +2,10 @@ $mat-select-arrow-size: 5px !default;
 $mat-select-arrow-margin-width: 15px !default;
 $mat-select-arrow-margin-height: 4px !default;
 
+.siga-separator {
+  margin-top: 19px;
+}
+
 .mat-select-arrow-wrapper {
   width: 0;
   height: 0;
@@ -20,22 +24,10 @@ $mat-select-arrow-margin-height: 4px !default;
   border-bottom: $mat-select-arrow-size solid;
 }
 
-.siga-separator {
-  margin-top: 19px;
+span {
+  opacity: 0;
+  transition: opacity 200ms;
 }
-
-.siga-form-confirm {
-  color: green;
-}
-
-.siga-form-cancel {
-  color: red;
-}
-
-.temp-margin {
-  margin-top: 20px;
-}
-
-.siga-uppercase-input {
-  text-transform:uppercase;
+:host.floating span {
+  opacity: 1;
 }

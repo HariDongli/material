@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing } from './dossiers.routing';
 import { NgaModule } from 'app/theme/nga.module';
+import { SharedModule } from 'app/shared/shared.module';
 
 import { DossiersComponent } from './dossiers.component';
 import { CreateDossierComponent } from './create-dossier/create-dossier.component';
@@ -18,6 +19,7 @@ import { DossierService } from './dossiers.service';
     NgaModule,
     routing,
     NgbModule.forRoot(),
+    SharedModule
   ],
   declarations: [
     DossiersComponent,

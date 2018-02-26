@@ -1,0 +1,13 @@
+<div fxLayout="row">
+  <input matInput [matAutocomplete]="autoCompleteControl" (optionSelected)="test($event)" tabindex="{{tabIndex}}">
+
+  <div class="mat-select-arrow-wrapper" (click)="focus()">
+    <div class="mat-select-arrow" [ngClass]="{'mat-select-arrow-down': !autoCompleteControl.isOpen, 'mat-select-arrow-up': autoCompleteControl.isOpen}"></div>
+  </div>
+</div>
+
+<!--  
+  <button mat-button type="button" *ngIf="test.value" matSuffix mat-icon-button aria-label="Clear" (click)="clear() ?">
+  <mat-icon>close</mat-icon>
+</button> 
+-->

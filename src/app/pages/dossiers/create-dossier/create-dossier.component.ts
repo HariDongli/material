@@ -88,12 +88,12 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
   formDossier: FormGroup;
 
   /**
-   * 
+   *
    */
   navigationWatcher: Subscription;
 
   /**
-   * 
+   *
    */
   snackbarSubscription: Subscription;
 
@@ -133,7 +133,7 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
     const BenefRegex: RegExp = /(\d){8}([A-Za-z])/;
 
     this.formDossier = this.formBuilder.group({
-      thematique: ['', [Validators.required, this.thematiqueValidator()]],
+      thematique: [[null], [Validators.required, this.thematiqueValidator()]],
       dept: ['', [Validators.required, this.deptValidator()]],
       intitule: ['', [Validators.required, Validators.maxLength(80)]],
       // TODO : PATTERN ON BENEF
@@ -202,6 +202,8 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
   }
 
   displayThematique(thematique: Thematique) {
+    console.log('test1 => ', thematique);
+
     if (thematique) {
       return `${thematique.code} - ${thematique.libelle}`;
     }
@@ -234,8 +236,8 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
-   * @param value 
+   *
+   * @param value
    */
   filterDepts(value: string) {
     return this.depts.filter(dept => {
@@ -245,10 +247,12 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
-   * @param value 
+   *
+   * @param value
    */
   filterThematiques(value: string) {
+    console.log('test2 => ', value);
+
     return this.thematiques.filter(thematiques => {
       return (thematiques.code.toLowerCase().search(value.toString().toLowerCase()) !== -1) ||
         (thematiques.libelle.toLowerCase().search(value.toString().toLowerCase()) !== -1)
@@ -267,13 +271,13 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CreateDossierPopupComponent, {
+    this.dialog.open(CreateDossierPopupComponent, {
       width: '350px',
     });
   }
 
   /**
-   * 
+   *
    */
   onSubmit() {
     const deptId = (this.formDossier.get('dept').value as Departement).id
@@ -284,6 +288,8 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
       intitule: this.formDossier.get('intitule').value,
       thematique: (this.formDossier.get('thematique').value as Thematique)
     }
+
+    console.log(formattedDossier);
 
     const snackbarConfig: MatSnackBarConfig = {
       duration: 5000,
@@ -300,14 +306,14 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
             this.submitted = false;
           });
       },
-      (error: any) => {
-        const snackBarAction = this.snackbar.open(`La création du dossier a échoué. Contacter l'administrateur.`, 'X', snackbarConfig);
-        this.snackbarSubscription = snackBarAction.afterDismissed()
-          .subscribe(() => {
-            console.error(error);
-            this.submitted = false;
-          });
-      });
+        (error: any) => {
+          const snackBarAction = this.snackbar.open(`La création du dossier a échoué. Contacter l'administrateur.`, 'X', snackbarConfig);
+          this.snackbarSubscription = snackBarAction.afterDismissed()
+            .subscribe(() => {
+              console.error(error);
+              this.submitted = false;
+            });
+        });
   }
 
   ngOnDestroy() {
