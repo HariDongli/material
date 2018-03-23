@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router, NavigationStart } from '@angular/router';
 
@@ -21,6 +21,8 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./create-dossier.component.scss'],
 })
 export class CreateDossierComponent implements OnInit, OnDestroy {
+  @ViewChild('hello') hello ;
+  thematique: FormControl;
   /**
    *
    */
@@ -133,17 +135,36 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
     const BenefRegex: RegExp = /(\d){8}([A-Za-z])/;
 
     this.formDossier = this.formBuilder.group({
-      thematique: [[null], [Validators.required, this.thematiqueValidator()]],
       dept: ['', [Validators.required, this.deptValidator()]],
       intitule: ['', [Validators.required, Validators.maxLength(80)]],
       // TODO : PATTERN ON BENEF
       benef_number: ['', [Validators.required, Validators.maxLength(9), Validators.pattern(BenefRegex)]],
       benef_libelle: [{ value: '', disabled: true }, [Validators.required, Validators.maxLength(9)]]
     });
+    // let formStatus = new FormStatus();
+    this.thematique = new FormControl(
+      '',[ Validators.required, this.thematiqueValidator()],
+    ); 
+    
 
+    this.formDossier.addControl('thematique',this.thematique);
     // Bénéficiaire libelle handler (TEMPORARY)
-    this.formDossier.get('benef_number').valueChanges.subscribe(
+    this.formDossier.get('dept').valueChanges.subscribe(
+      
       (value) => {
+        console.log(this.formDossier.controls,'dept');
+      }
+    );
+    this.formDossier.get('thematique').valueChanges.subscribe(
+      
+      (value) => {
+        console.log(this.formDossier.controls,'thematique');
+      }
+    );
+    this.formDossier.get('benef_number').valueChanges.subscribe(
+      
+      (value) => {
+        console.log(value);
         if (this.formDossier.get('benef_number').valid) {
           this.formDossier.get('benef_libelle').setValue('BOUCHON');
         } else {
@@ -182,11 +203,14 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
    * Custom validator for thematiques
    */
   thematiqueValidator() {
+    console.log('Inside thematiqueValidator()');
     return (group: FormGroup): { [key: string]: any } => {
       let foundValue = false;
-
+      // console.clear();
+// console.log(this.thematiques,group)
       if (this.thematiques) {
         this.thematiques.forEach((thematique) => {
+          console.log(group.value,thematique)
           if (thematique.id === group.value.id) {
             foundValue = true;
           }
@@ -200,21 +224,22 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
       return null;
     };
   }
-
+myname="hari";
   displayThematique(thematique: Thematique) {
     console.log('test1 => ', thematique);
-
     if (thematique) {
       return `${thematique.code} - ${thematique.libelle}`;
     }
   }
 
   deptValidator() {
+    console.log('Inside deptValidator() ')
     return (group: FormGroup): { [key: string]: any } => {
       let foundValue = false;
 
       if (this.depts) {
         this.depts.forEach((dept) => {
+          // console.log(group)
           if (dept.id === group.value.id) {
             foundValue = true;
           }
@@ -251,7 +276,7 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
    * @param value
    */
   filterThematiques(value: string) {
-    console.log('test2 => ', value);
+    // console.log('test2 => ', value);
 
     return this.thematiques.filter(thematiques => {
       return (thematiques.code.toLowerCase().search(value.toString().toLowerCase()) !== -1) ||
@@ -333,4 +358,27 @@ export class CreateDossierComponent implements OnInit, OnDestroy {
     result += value.toString();
     return result;
   }
+  call(event){
+    // console.log(this.formDossier.get('thematique'));
+    // this.formDossier.get('thematique').markAsTouched();
+    // console.log(event);
+
+    // this.thematique.setValue(this.displayThematique(event));
+    // this.thematique.validator=this.thematiqueValidator();
+    // this.thematique.updateValueAndValidity();
+    // thematique.pristine=false;
+    // this.thematique.markAsTouched();
+    // thematique.
+    // this.thematique.markAsDirty();
+    
+  //   if(this.formDossier!==undefined){
+  //   this.formDossier.setControl('thematique',this.thematique);
+  //   console.log(this.formDossier.get('thematique').status,"hari")
+  // }
+  }
+}
+function hasExclamationMark(input: FormControl) {
+  const hasExclamation = true;
+  console.log('Inside deptValidator() XX')
+  return hasExclamation ? null : { needsExclamation: true };
 }

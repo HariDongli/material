@@ -30,17 +30,24 @@
       </mat-autocomplete> -->
 
       <!-- Thematique -->
-      <mat-form-field>
-        <siga-auto-complete placeholder="Thématique" [tabIndex]="1" [autoCompleteControl]="thematicAutoComplete" formControlName="thematique">
+      <!-- <div [ngClass]="{'mat-form-field-should-float' : true} "> -->
+      <!-- <mat-form-field style="display:block;transition:none "> -->
+        <!-- <mat-form-field> -->
+        <siga-auto-complete id="hey"
+        
+         #hello  (em)="call($event)"
+        [tabIndex]="1" matInput
+        [dropdown]="formDossier.get('thematique')"
+         [autoCompleteControl]="thematicAutoComplete" 
+         >
         </siga-auto-complete>
-
         <mat-hint class="material-hint-error" *ngIf="!formDossier.get('thematique').hasError('required') && formDossier.get('thematique').touched && formDossier.get('thematique').hasError('thematiqueNotFound')">
           <strong>
             Veuillez sélectionner un des choix parmi les options possibles.
           </strong>
         </mat-hint>
-      </mat-form-field>
-
+      <!-- </mat-form-field> -->
+      <!-- </div> -->
       <mat-autocomplete #thematicAutoComplete="matAutocomplete" [displayWith]="displayThematique">
         <mat-option *ngFor="let thematique of filteredThematiques | async" [value]="thematique">
           <span> {{thematique.code}} </span>
@@ -48,20 +55,16 @@
           <span> {{thematique.libelle}} </span>
         </mat-option>
       </mat-autocomplete>
-
+        <!-- </mat-form-field> -->
       <!-- Département -->
       <mat-form-field>
-        <div fxLayout="row">
-          <input type="text" placeholder="Département" aria-label="Number" matInput [matAutocomplete]="deptAutoComplete" formControlName="dept"
+        <div fxLayout="row" >
+          <input type="text" placeholder="Département"
+           aria-label="Number"
+            matInput [matAutocomplete]="deptAutoComplete"
+             formControlName="dept"
             tabindex="2">
-          <mat-autocomplete #deptAutoComplete="matAutocomplete" [displayWith]="displayDept">
-            <mat-option *ngFor="let dept of filteredDepts | async" [value]="dept">
-              <span> {{(dept.id
-                < 10) ? '0' + dept.id : dept.id}} </span>
-                  <span> - </span>
-                  <span> {{dept.libelle}} </span>
-            </mat-option>
-          </mat-autocomplete>
+        
           <div class="mat-select-arrow-wrapper">
             <div class="mat-select-arrow" [ngClass]="{'mat-select-arrow-down': !deptAutoComplete.isOpen, 'mat-select-arrow-up': deptAutoComplete.isOpen}"></div>
           </div>
@@ -75,7 +78,15 @@
           </strong>
         </mat-hint>
       </mat-form-field>
-
+      <mat-autocomplete #deptAutoComplete="matAutocomplete" [displayWith]="displayDept">
+        <mat-option *ngFor="let dept of filteredDepts | async" [value]="dept">
+          <span> {{(dept.id
+            < 10) ? '0' + dept.id : dept.id}} </span>
+              <span> - </span>
+              <span> {{dept.libelle}} </span>
+        </mat-option>
+      </mat-autocomplete>
+ 
       <!-- Intitulé -->
       <mat-form-field>
         <input matInput maxlength="80" placeholder="Intitulé" formControlName="intitule" tabindex="3">
@@ -122,7 +133,7 @@
 <mat-card>
   <div>
     <span>
-      value : {{formDossier.get('thematique').value}}
+      value : {{formDossier.get('thematique').status}}
     </span>
     <br/>
     <span>

@@ -1,13 +1,10 @@
-<div fxLayout="row">
-  <input matInput [matAutocomplete]="autoCompleteControl" (optionSelected)="test($event)" tabindex="{{tabIndex}}">
-
-  <div class="mat-select-arrow-wrapper" (click)="focus()">
+<mat-form-field style="width:100%">
+  <div fxLayout="row" style="flex-direction: row; box-sizing: border-box; display: flex;">
+  <input id="mat_input" #in matInput  [formControl]="dropdown"
+    placeholder="Thématique" [matAutocomplete]="autoCompleteControl" 
+    (optionSelected)="test($event)" tabindex="{{tabIndex}}">
+  <div class="mat-select-arrow-wrapper" (click)="focus()" >
     <div class="mat-select-arrow" [ngClass]="{'mat-select-arrow-down': !autoCompleteControl.isOpen, 'mat-select-arrow-up': autoCompleteControl.isOpen}"></div>
   </div>
 </div>
-
-<!--  
-  <button mat-button type="button" *ngIf="test.value" matSuffix mat-icon-button aria-label="Clear" (click)="clear() ?">
-  <mat-icon>close</mat-icon>
-</button> 
--->
+</mat-form-field>

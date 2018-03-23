@@ -1,12 +1,13 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { NgControl } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Component, ElementRef, Input, AfterViewInit, OnDestroy, HostBinding, forwardRef } from '@angular/core';
-import { FormBuilder, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, ElementRef, Input, AfterViewInit, OnDestroy, HostBinding, forwardRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 import { MatFormFieldControl, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-
 class AutoCompleteInput {
+  [x: string]: any;
   constructor(public testValue: string) {
   }
 }
@@ -34,17 +35,25 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
    * Stream that emits whenever the state of the control changes such that the parent `MatFormField`
    * needs to run change detection.
    */
+  
+  public myname="harish"
   stateChanges = new Subject<void>();
   parts: FormGroup;
   focused = false;
   ngControl = null;
   errorState = false;
   controlType = 'siga-autocomplete';
-
-  @HostBinding('class.floating') get shouldLabelFloat() { return this.focused || !this.empty; }
+  @ViewChild('in') mat_in: ElementRef;
+  @Output() em: EventEmitter <any>  = new EventEmitter<any>();
+  @HostBinding('class.floating') get shouldLabelFloat()
+   { // console.clear();
+      // console.log("am i floating",this.empty) 
+     return this.focused || !this.empty; 
+    }
   @HostBinding() id = `siga-autocomplete-${SigaAutoCompleteComponent.nextId++}`;
   @HostBinding('attr.aria-describedby') describedBy = '';
-
+  @ViewChild('hello') hello: ElementRef;
+  // @Input() fm : FormControl;
   @Input()
   get placeholder() { return this._placeholder; }
   set placeholder(plh) {
@@ -72,14 +81,19 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
   @Input()
   get value(): AutoCompleteInput | null {
     const n = this.parts.value as AutoCompleteInput;
-    if (n.testValue) {
-      return new AutoCompleteInput(n.testValue);
+    // console.log(n)
+    if (n.singleValue) {
+      return new AutoCompleteInput(n.singleValue);
     }
     return null;
   }
+
+
   set value(value: AutoCompleteInput | null) {
-    console.log(value);
-    this.writeValue(value.testValue);
+    console.log(value,"value");
+    this.writeValue(value.libelle);
+    this.dropdown.markAsTouched();
+    // console.log( this.elRef.nativeElement.querySelector('input'),"....");
     this.stateChanges.next();
   }
 
@@ -92,17 +106,17 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
   // ADDITIONNAL
   @Input() autoCompleteControl: MatAutocomplete;
   @Input() tabIndex: string;
-
+  @Input() dropdown: FormControl;
   private subs: Subscription[] = [];
 
-  constructor(fb: FormBuilder, private fm: FocusMonitor, private elRef: ElementRef) {
+  constructor(fb: FormBuilder, private fm: FocusMonitor,
+     private elRef: ElementRef) {
     this.subs.push(
       fm.monitor(elRef.nativeElement, true).subscribe((origin) => {
         this.focused = !!origin;
         this.stateChanges.next();
       })
     );
-
     this.parts = fb.group({
       'singleValue': '',
     });
@@ -110,14 +124,32 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
     this.subs.push(this.parts.valueChanges.subscribe((value: string) => {
       this.propagateChange(value);
     }));
+    if (this.dropdown !==undefined){
+      console.log(this.dropdown)
+    this.dropdown.valueChanges.subscribe(
+      
+     
+      (value) => {
+        console.log(value,'thematique----child');
+        console.log()
+      }
+    );}
   }
 
   ngAfterViewInit() {
-    console.log(this.autoCompleteControl);
+    // console.log(this.autoCompleteControl);
+    
+
     this.autoCompleteControl.optionSelected.subscribe((event: MatAutocompleteSelectedEvent) => {
-      console.log(event.option.value);
+      
       this.value = event.option.value;
+
     })
+    // this.dropdown.valueChanges.subscribe(
+    //   value => {
+    //     console.log(value,"*****************************")
+    //   }
+    // )
   }
 
   ngOnDestroy() {
@@ -127,6 +159,7 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
   }
 
   get empty() {
+    // console.log("from empty", this.value)
     return !this.value;
   }
 
@@ -135,13 +168,14 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
   }
 
   onContainerClick(event: MouseEvent) {
+    console.log( this.elRef.nativeElement.querySelector('input'),"....");
     if ((event.target as Element).tagName.toLowerCase() !== 'input') {
       this.elRef.nativeElement.querySelector('input').focus();
     }
   }
 
   focus() {
-    this.elRef.nativeElement.querySelector('input').focus();
+//console.log("clicked arrow");
   }
 
 
@@ -150,7 +184,8 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
 
   public writeValue(a: string) {
     console.log('wtf');
-
+    console.log(a);
+    // console.log(this.myname);
     if (a && a !== '') {
       console.log('value => ', a);
       this.parts.setValue({
@@ -169,6 +204,10 @@ export class SigaAutoCompleteComponent implements MatFormFieldControl<AutoComple
   public setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
-}
 
+
+}
+function call(){
+  console.log("moved away")
+  }
 
